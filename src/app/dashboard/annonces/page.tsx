@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import ListingActions from './ListingActions'
+import StatusBadge from '@/components/StatusBadge'
 
 export default async function MesAnnoncesPage() {
   const supabase = await createClient()
@@ -52,7 +53,7 @@ export default async function MesAnnoncesPage() {
                 <div className="flex gap-4 p-4">
 
                   {/* Vignette */}
-                  <div className="w-24 h-20 rounded-xl overflow-hidden shrink-0 flex items-center justify-center text-2xl" style={{ background: '#F5EFE0' }}>
+                  <div className="w-24 h-20 rounded-xl overflow-hidden shrink-0 flex items-center justify-center text-2xl" style={{ background: 'var(--sand)' }}>
                     {img?.url ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img src={img.url} alt="" className="w-full h-full object-cover" />
@@ -97,13 +98,3 @@ export default async function MesAnnoncesPage() {
   )
 }
 
-function StatusBadge({ status }: { status: string }) {
-  const map: Record<string, { label: string; bg: string; color: string }> = {
-    active:  { label: 'Actif',      bg: '#E8FBF0', color: '#2D6A4F' },
-    pending: { label: 'En attente', bg: '#F5E6C0', color: '#B8922A' },
-    sold:    { label: 'Vendu',      bg: '#F0F0F0', color: '#6B7280' },
-    expired: { label: 'Expiré',     bg: '#FBE8E8', color: '#A32D2D' },
-  }
-  const s = map[status] ?? map.active
-  return <span className="text-xs font-semibold px-2.5 py-1 rounded-full shrink-0" style={{ background: s.bg, color: s.color }}>{s.label}</span>
-}

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import StatusBadge from '@/components/StatusBadge'
 
 export default async function DashboardPage() {
   const supabase = await createClient()
@@ -27,10 +28,10 @@ export default async function DashboardPage() {
   const activeCount = listings.filter(l => l.status === 'active').length
 
   const stats = [
-    { label: 'Annonces actives', value: activeCount,              color: 'var(--navy)',        bg: 'var(--sand)' },
-    { label: 'Vues totales',     value: totalViews,               color: '#2D6A4F',            bg: '#E8FBF0' },
-    { label: 'Messages reçus',   value: recentContacts?.length ?? 0, color: 'var(--terracotta)', bg: '#F0D5C8' },
-    { label: 'En attente',       value: listings.filter(l => l.status === 'pending').length, color: '#B8922A', bg: '#F5E6C0' },
+    { label: 'Annonces actives', value: activeCount,                                          color: 'var(--navy)',        bg: 'var(--sand)'            },
+    { label: 'Vues totales',     value: totalViews,                                           color: 'var(--success)',     bg: 'var(--success-bg)'      },
+    { label: 'Messages reçus',   value: recentContacts?.length ?? 0,                         color: 'var(--terracotta)', bg: 'var(--terracotta-light)' },
+    { label: 'En attente',       value: listings.filter(l => l.status === 'pending').length, color: 'var(--gold)',        bg: 'var(--gold-light)'      },
   ]
 
   return (
@@ -120,17 +121,3 @@ export default async function DashboardPage() {
   )
 }
 
-function StatusBadge({ status }: { status: string }) {
-  const map: Record<string, { label: string; bg: string; color: string }> = {
-    active:  { label: 'Actif',      bg: '#E8FBF0', color: '#2D6A4F' },
-    pending: { label: 'En attente', bg: '#F5E6C0', color: '#B8922A' },
-    sold:    { label: 'Vendu',      bg: '#F0F0F0', color: '#6B7280' },
-    expired: { label: 'Expiré',     bg: '#FBE8E8', color: '#A32D2D' },
-  }
-  const s = map[status] ?? map.active
-  return (
-    <span className="text-xs font-semibold px-2.5 py-1 rounded-full shrink-0" style={{ background: s.bg, color: s.color }}>
-      {s.label}
-    </span>
-  )
-}

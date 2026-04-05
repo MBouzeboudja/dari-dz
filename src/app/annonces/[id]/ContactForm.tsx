@@ -79,7 +79,7 @@ export default function ContactForm({ listingId }: Props) {
       />
 
       {error && (
-        <p className="text-xs text-red-500 bg-red-50 border border-red-200 rounded-lg px-3 py-2">{error}</p>
+        <p className="text-xs border rounded-lg px-3 py-2" style={{ color: 'var(--error)', background: 'var(--error-bg)', borderColor: 'var(--error)' }}>{error}</p>
       )}
 
       <button

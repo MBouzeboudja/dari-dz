@@ -75,7 +75,7 @@ export default async function AnnonceDetailPage({ params }: Props) {
               <div className="flex items-start justify-between gap-4 flex-wrap mb-3">
                 <span
                   className="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full text-white"
-                  style={{ background: listing.transaction === 'vente' ? 'var(--navy)' : '#2D6A4F' }}
+                  style={{ background: listing.transaction === 'vente' ? 'var(--navy)' : 'var(--success)' }}
                 >
                   {listing.transaction === 'vente' ? 'À vendre' : 'À louer'}
                 </span>
@@ -146,7 +146,7 @@ export default async function AnnonceDetailPage({ params }: Props) {
                 <a
                   href={`tel:${seller.phone}`}
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-white font-semibold text-sm mb-3 transition-opacity hover:opacity-90"
-                  style={{ background: '#2D6A4F' }}
+                  style={{ background: 'var(--success)' }}
                 >
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.8a16 16 0 0 0 6 6l1.06-.98a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21.73 16z"/>

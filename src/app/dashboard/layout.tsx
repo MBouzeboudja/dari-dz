@@ -23,10 +23,10 @@ export default async function DashboardLayout({ children }: { children: React.Re
     )
 
   const navItems = [
-    { href: '/dashboard',          label: 'Vue d\'ensemble', icon: '▦' },
-    { href: '/dashboard/annonces', label: 'Mes annonces',    icon: '📋' },
-    { href: '/dashboard/messages', label: 'Messages',        icon: '💬', badge: msgCount ?? 0 },
-    { href: '/dashboard/profil',   label: 'Mon profil',      icon: '👤' },
+    { href: '/dashboard',          label: 'Vue d\'ensemble', shortLabel: 'Accueil',   icon: '▦' },
+    { href: '/dashboard/annonces', label: 'Mes annonces',    shortLabel: 'Annonces',  icon: '📋' },
+    { href: '/dashboard/messages', label: 'Messages',        shortLabel: 'Messages',  icon: '💬', badge: msgCount ?? 0 },
+    { href: '/dashboard/profil',   label: 'Mon profil',      shortLabel: 'Profil',    icon: '👤' },
   ]
 
   return (

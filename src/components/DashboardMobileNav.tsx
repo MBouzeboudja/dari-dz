@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 interface NavItem {
   href: string
   label: string
+  shortLabel?: string
   icon: string
   badge?: number
 }
@@ -32,8 +33,8 @@ export default function DashboardMobileNav({ items }: { items: NavItem[] }) {
               style={{ color: active ? 'var(--terracotta)' : '#9CA3AF' }}
             >
               <span className="text-xl leading-none">{item.icon}</span>
-              <span className="text-[10px] font-semibold leading-none">
-                {item.label.split(' ')[0]}
+              <span className="text-[10px] font-semibold leading-none text-center px-1">
+                {item.shortLabel ?? item.label}
               </span>
               {!!item.badge && item.badge > 0 && (
                 <span

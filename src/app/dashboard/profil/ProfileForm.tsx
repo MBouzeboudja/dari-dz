@@ -182,12 +182,12 @@ export default function ProfileForm({ userId, initialName, initialPhone, initial
           </div>
 
           {error && (
-            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+            <p className="text-sm border rounded-lg px-3 py-2" style={{ color: 'var(--error)', background: 'var(--error-bg)', borderColor: 'var(--error)' }}>
               {error}
             </p>
           )}
           {success && (
-            <p className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+            <p className="text-sm border rounded-lg px-3 py-2" style={{ color: 'var(--success)', background: 'var(--success-bg)', borderColor: 'var(--success)' }}>
               Profil mis à jour avec succès.
             </p>
           )}
@@ -243,12 +243,12 @@ export default function ProfileForm({ userId, initialName, initialPhone, initial
           </div>
 
           {pwError && (
-            <p className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+            <p className="text-sm border rounded-lg px-3 py-2" style={{ color: 'var(--error)', background: 'var(--error-bg)', borderColor: 'var(--error)' }}>
               {pwError}
             </p>
           )}
           {pwSuccess && (
-            <p className="text-sm text-green-700 bg-green-50 border border-green-200 rounded-lg px-3 py-2">
+            <p className="text-sm border rounded-lg px-3 py-2" style={{ color: 'var(--success)', background: 'var(--success-bg)', borderColor: 'var(--success)' }}>
               Mot de passe modifié avec succès.
             </p>
           )}
