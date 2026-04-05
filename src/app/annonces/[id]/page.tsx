@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
+import type { Metadata } from 'next'
 import ContactForm from './ContactForm'
 import Gallery from './Gallery'
 import ShareButtons from './ShareButtons'
@@ -12,6 +13,51 @@ const TYPE_LABEL: Record<string, string> = {
 
 interface Props {
   params: Promise<{ id: string }>
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params
+  const supabase = await createClient()
+
+  const { data: listing } = await supabase
+    .from('listings')
+    .select('title, description, price, wilaya, commune, type, transaction, listing_images(url, is_primary, order)')
+    .eq('id', id)
+    .eq('status', 'active')
+    .single()
+
+  if (!listing) return {}
+
+  const images = (listing.listing_images as { url: string; is_primary: boolean; order: number }[]) ?? []
+  const primary = images.find(i => i.is_primary) ?? images.sort((a, b) => a.order - b.order)[0]
+
+  const price    = Number(listing.price).toLocaleString('fr-DZ')
+  const typeLabel = TYPE_LABEL[listing.type] ?? listing.type
+  const transaction = listing.transaction === 'vente' ? 'à vendre' : 'à louer'
+  const description = listing.description
+    ? listing.description.slice(0, 160)
+    : `${typeLabel} ${transaction} à ${listing.commune}, ${listing.wilaya} — ${price} DA`
+
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+
+  return {
+    title: `${listing.title} — Dari.dz`,
+    description,
+    openGraph: {
+      title: listing.title,
+      description,
+      type: 'website',
+      url: `${siteUrl}/annonces/${id}`,
+      siteName: 'Dari.dz',
+      ...(primary ? { images: [{ url: primary.url, width: 1200, height: 630, alt: listing.title }] } : {}),
+    },
+    twitter: {
+      card: primary ? 'summary_large_image' : 'summary',
+      title: listing.title,
+      description,
+      ...(primary ? { images: [primary.url] } : {}),
+    },
+  }
 }
 
 export default async function AnnonceDetailPage({ params }: Props) {
