@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import ContactForm from './ContactForm'
 import Gallery from './Gallery'
+import ShareButtons from './ShareButtons'
 
 const TYPE_LABEL: Record<string, string> = {
   appartement: 'Appartement', villa: 'Villa / Maison', studio: 'Studio',
@@ -163,6 +164,13 @@ export default async function AnnonceDetailPage({ params }: Props) {
               <h2 className="font-bold text-sm mb-4" style={{ color: 'var(--navy)' }}>Envoyer un message</h2>
               <ContactForm listingId={listing.id} />
             </div>
+
+            {/* Partager */}
+            <ShareButtons
+              title={listing.title}
+              price={Number(listing.price).toLocaleString('fr-DZ')}
+              wilaya={listing.wilaya}
+            />
 
             {/* Signaler */}
             <p className="text-center text-xs text-gray-400">
