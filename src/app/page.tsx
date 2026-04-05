@@ -21,11 +21,23 @@ const TOP_WILAYAS = ['Alger', 'Oran', 'Constantine', 'Annaba', 'Blida', 'Sétif'
 export default async function HomePage() {
   const supabase = await createClient()
 
-  // Stats globales
-  const [{ count: totalListings }, { count: totalUsers }] = await Promise.all([
+  // Utilisateur connecté + stats globales
+  const [{ data: { user } }, { count: totalListings }, { count: totalUsers }] = await Promise.all([
+    supabase.auth.getUser(),
     supabase.from('listings').select('*', { count: 'exact', head: true }).eq('status', 'active'),
     supabase.from('profiles').select('*', { count: 'exact', head: true }),
   ])
+
+  let navUser
+  if (user) {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('name')
+      .eq('id', user.id)
+      .single()
+    const name = profile?.name ?? user.email ?? ''
+    navUser = { name: name.split(' ')[0], initial: name.charAt(0).toUpperCase() }
+  }
 
   // Annonces récentes à la une
   const { data: featured } = await supabase
@@ -40,7 +52,7 @@ export default async function HomePage() {
     <div className="min-h-screen" style={{ background: 'var(--cream, #FDFAF5)' }}>
 
       {/* ── Navbar ────────────────────────────────────────────── */}
-      <Navbar />
+      <Navbar user={navUser} />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative pt-16 pb-20 px-5 overflow-hidden" style={{ background: 'var(--navy)' }}>
