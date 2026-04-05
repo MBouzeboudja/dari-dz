@@ -90,8 +90,38 @@ export default async function AnnonceDetailPage({ params }: Props) {
     { label: 'Commune',     value: listing.commune },
   ].filter(Boolean) as { label: string; value: string }[]
 
+  const siteUrl  = process.env.NEXT_PUBLIC_SITE_URL ?? ''
+  const pageUrl  = `${siteUrl}/annonces/${id}`
+  const primaryImage = (listing.listing_images as { url: string; is_primary: boolean; order: number }[])
+    ?.find(i => i.is_primary)?.url
+    ?? (listing.listing_images as { url: string }[])?.[0]?.url
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'RealEstateListing',
+    name: listing.title,
+    description: listing.description ?? undefined,
+    url: pageUrl,
+    datePosted: listing.created_at,
+    price: listing.price,
+    priceCurrency: 'DZD',
+    ...(primaryImage ? { image: primaryImage } : {}),
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: listing.commune,
+      addressRegion: listing.wilaya,
+      addressCountry: 'DZ',
+    },
+    ...(listing.surface ? { floorSize: { '@type': 'QuantitativeValue', value: listing.surface, unitCode: 'MTK' } } : {}),
+  }
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--sand)' }}>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
 
       {/* ── Navbar ── */}
       <header className="bg-white border-b sticky top-0 z-20" style={{ borderColor: 'var(--border)', boxShadow: '0 1px 0 rgba(0,0,0,0.06)' }}>

@@ -5,11 +5,48 @@ import ListingCard from '@/components/listings/ListingCard'
 import SearchFilters from '@/components/listings/SearchFilters'
 import MobileFiltersDrawer from '@/components/listings/MobileFiltersDrawer'
 import type { Listing } from '@/types'
+import type { Metadata } from 'next'
 
 const PAGE_SIZE = 12
 
+const TYPE_LABEL: Record<string, string> = {
+  appartement: 'Appartements', villa: 'Villas / Maisons', studio: 'Studios',
+  terrain: 'Terrains', local: 'Locaux commerciaux', bureau: 'Bureaux',
+}
+const TRANSACTION_LABEL: Record<string, string> = {
+  vente: 'à vendre', location: 'à louer',
+}
+
 interface PageProps {
   searchParams: Promise<Record<string, string | undefined>>
+}
+
+export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
+  const params = await searchParams
+  const parts: string[] = []
+
+  if (params.type)        parts.push(TYPE_LABEL[params.type] ?? params.type)
+  if (params.transaction) parts.push(TRANSACTION_LABEL[params.transaction] ?? params.transaction)
+  if (params.wilaya)      parts.push(`à ${params.wilaya}`)
+  if (params.q)           parts.push(`"${params.q}"`)
+
+  const title = parts.length > 0
+    ? `${parts.join(' ')} en Algérie`
+    : 'Annonces immobilières en Algérie'
+
+  const description = parts.length > 0
+    ? `Trouvez des ${parts.join(' ')} sur Dari.dz — petites annonces immobilières dans les 48 wilayas d'Algérie.`
+    : 'Parcourez toutes les annonces immobilières en Algérie : appartements, villas, terrains, locaux à vendre ou à louer.'
+
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: params.type || params.transaction || params.wilaya
+        ? undefined  // pages filtrées non canoniques
+        : '/annonces',
+    },
+  }
 }
 
 export default async function AnnoncesPage({ searchParams }: PageProps) {

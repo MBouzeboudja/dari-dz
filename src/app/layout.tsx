@@ -12,10 +12,28 @@ const playfair = Playfair_Display({
   variable: '--font-playfair',
 })
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+
 export const metadata: Metadata = {
-  title: 'Dari.dz — Immobilier en Algérie',
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: 'Dari.dz — Immobilier en Algérie',
+    template: '%s — Dari.dz',
+  },
   description: 'La première plateforme dédiée à l\'immobilier en Algérie. Achetez, vendez, ou louez dans les 48 wilayas.',
-  keywords: 'immobilier algérie, appartement vente algérie, villa location algérie, terrain algérie',
+  keywords: 'immobilier algérie, appartement vente algérie, villa location algérie, terrain algérie, achat immobilier, location appartement algérie',
+  openGraph: {
+    siteName: 'Dari.dz',
+    type: 'website',
+    locale: 'fr_DZ',
+  },
+  alternates: {
+    canonical: SITE_URL,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({
