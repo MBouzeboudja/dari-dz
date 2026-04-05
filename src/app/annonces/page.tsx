@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import ListingCard from '@/components/listings/ListingCard'
 import SearchFilters from '@/components/listings/SearchFilters'
+import MobileFiltersDrawer from '@/components/listings/MobileFiltersDrawer'
 import type { Listing } from '@/types'
 
 const PAGE_SIZE = 12
@@ -108,11 +109,16 @@ export default async function AnnoncesPage({ searchParams }: PageProps) {
                   {hasFilters ? 'avec les filtres sélectionnés' : 'disponibles en Algérie'}
                 </p>
               </div>
-              <select className="text-sm border rounded-xl px-3 py-2 outline-none bg-white" style={{ borderColor: 'var(--border)' }}>
-                <option>Plus récentes</option>
-                <option>Prix croissant</option>
-                <option>Prix décroissant</option>
-              </select>
+              <div className="flex items-center gap-2">
+                <Suspense>
+                  <MobileFiltersDrawer />
+                </Suspense>
+                <select className="text-sm border rounded-xl px-3 py-2 outline-none bg-white" style={{ borderColor: 'var(--border)' }}>
+                  <option>Plus récentes</option>
+                  <option>Prix croissant</option>
+                  <option>Prix décroissant</option>
+                </select>
+              </div>
             </div>
 
             {/* Grille */}

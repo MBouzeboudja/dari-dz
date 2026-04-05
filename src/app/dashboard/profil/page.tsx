@@ -36,6 +36,25 @@ export default async function ProfilPage() {
         memberSince={memberSince}
       />
 
+      {/* ── Déconnexion ── */}
+      <div className="bg-white rounded-2xl border max-w-2xl" style={{ borderColor: 'var(--border)', boxShadow: '0 2px 8px rgba(26,39,68,0.06)' }}>
+        <div className="px-6 py-4 border-b" style={{ borderColor: 'var(--border)' }}>
+          <h2 className="font-bold text-sm" style={{ color: 'var(--navy)' }}>Session</h2>
+        </div>
+        <div className="px-6 py-5">
+          <p className="text-sm text-gray-500 mb-4">Vous êtes connecté en tant que <span className="font-semibold" style={{ color: 'var(--navy)' }}>{user.email}</span>.</p>
+          <form action="/auth/logout" method="POST">
+            <button
+              type="submit"
+              className="px-5 py-2.5 rounded-xl border text-sm font-semibold transition-all hover:bg-red-50 hover:border-red-300 hover:text-red-600"
+              style={{ borderColor: 'var(--border)', color: '#6B7280' }}
+            >
+              Se déconnecter
+            </button>
+          </form>
+        </div>
+      </div>
+
     </div>
   )
 }

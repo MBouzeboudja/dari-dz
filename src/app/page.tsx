@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import ListingCard from '@/components/listings/ListingCard'
+import Navbar from '@/components/Navbar'
 import type { Listing } from '@/types'
 import {WILAYAS} from "@/lib/constants";
 
@@ -39,22 +40,7 @@ export default async function HomePage() {
     <div className="min-h-screen" style={{ background: 'var(--cream, #FDFAF5)' }}>
 
       {/* ── Navbar ────────────────────────────────────────────── */}
-      <header className="absolute top-0 w-full z-20">
-        <div className="max-w-7xl mx-auto px-5 h-16 flex items-center justify-between">
-          <span className="font-serif text-2xl font-bold text-white drop-shadow">
-            Dari<span style={{ color: '#F0A882' }}>.dz</span>
-          </span>
-          <nav className="hidden md:flex items-center gap-6 text-sm text-white/80">
-            <Link href="/annonces" className="hover:text-white transition-colors">Annonces</Link>
-            <Link href="/annonces?transaction=vente" className="hover:text-white transition-colors">Acheter</Link>
-            <Link href="/annonces?transaction=location" className="hover:text-white transition-colors">Louer</Link>
-            <Link href="/auth/login" className="hover:text-white transition-colors">Connexion</Link>
-          </nav>
-          <Link href="/annonces/nouvelle" className="px-4 py-2 rounded-xl text-sm font-semibold transition-all hover:opacity-90" style={{ background: 'var(--terracotta)', color: 'white' }}>
-            + Publier
-          </Link>
-        </div>
-      </header>
+      <Navbar />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <section className="relative pt-16 pb-20 px-5 overflow-hidden" style={{ background: 'var(--navy)' }}>
