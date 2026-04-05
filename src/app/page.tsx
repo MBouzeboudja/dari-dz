@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import ListingCard from '@/components/listings/ListingCard'
 import type { Listing } from '@/types'
+import {WILAYAS} from "@/lib/constants";
 
 // ─── Données statiques ────────────────────────────────────────
 const CATEGORIES = [
@@ -121,7 +122,7 @@ export default async function HomePage() {
         <div className="max-w-4xl mx-auto px-5 py-6 grid grid-cols-3 gap-4 text-center">
           {[
             { value: `${(totalListings ?? 0).toLocaleString('fr-DZ')}+`, label: 'Annonces actives' },
-            { value: '48', label: 'Wilayas couvertes' },
+            { value: WILAYAS.length, label: 'Wilayas couvertes' },
             { value: `${(totalUsers ?? 0).toLocaleString('fr-DZ')}+`, label: 'Utilisateurs inscrits' },
           ].map(s => (
             <div key={s.label}>
