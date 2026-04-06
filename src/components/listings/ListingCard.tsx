@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import type { Listing } from '@/types'
 
 const TYPE_EMOJI: Record<string, string> = {
@@ -21,8 +22,13 @@ export default function ListingCard({ listing }: { listing: Listing }) {
         {/* Image */}
         <div className="relative h-52 overflow-hidden">
           {hasRealImage ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={primary!.url} alt={listing.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+            <Image
+              src={primary!.url}
+              alt={listing.title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-300"
+            />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center gap-2 group-hover:scale-105 transition-transform duration-300" style={{ background: TYPE_BG[listing.type] ?? '#F5EFE0' }}>
               <span style={{ fontSize: '2.8rem' }}>{TYPE_EMOJI[listing.type] ?? '🏠'}</span>

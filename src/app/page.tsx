@@ -17,6 +17,24 @@ const CATEGORIES = [
 
 const TOP_WILAYAS = ['Alger', 'Oran', 'Constantine', 'Annaba', 'Blida', 'Sétif', 'Tizi Ouzou', 'Béjaïa']
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
+
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'Dari.dz',
+  url: SITE_URL,
+  description: 'La première plateforme dédiée à l\'immobilier en Algérie.',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${SITE_URL}/annonces?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+}
+
 // ─── Page ─────────────────────────────────────────────────────
 export default async function HomePage() {
   const supabase = await createClient()
@@ -50,6 +68,11 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--cream, #FDFAF5)' }}>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+      />
 
       {/* ── Navbar ────────────────────────────────────────────── */}
       <Navbar user={navUser} />

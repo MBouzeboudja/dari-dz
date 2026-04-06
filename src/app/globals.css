@@ -1,6 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: var(--font-dm-sans), sans-serif;
+  --font-family-serif: var(--font-playfair), serif;
+}
 
 :root {
   /* Palette principale */
@@ -26,10 +29,4 @@
 body {
   background-color: var(--cream);
   color: var(--navy);
-}
-
-@layer utilities {
-  .font-serif {
-    font-family: var(--font-playfair), serif;
-  }
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 
 const TYPE_EMOJI: Record<string, string> = {
   appartement: '🏢', villa: '🏠', studio: '🛋️',
@@ -44,11 +45,13 @@ export default function Gallery({ images, title, type }: Props) {
           style={{ height: '400px', background: '#f0f0f0' }}
           onClick={() => setLightbox(true)}
         >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <Image
             src={sorted[active].url}
             alt={`${title} — photo ${active + 1}`}
-            className="w-full h-full object-cover transition-opacity duration-200"
+            fill
+            sizes="(max-width: 1024px) 100vw, 720px"
+            className="object-cover transition-opacity duration-200"
+            priority
           />
           {sorted.length > 1 && (
             <>
@@ -89,11 +92,10 @@ export default function Gallery({ images, title, type }: Props) {
               <button
                 key={img.id}
                 onClick={() => setActive(i)}
-                className="shrink-0 w-20 h-16 rounded-xl overflow-hidden border-2 transition-all"
+                className="relative shrink-0 w-20 h-16 rounded-xl overflow-hidden border-2 transition-all"
                 style={{ borderColor: i === active ? 'var(--terracotta)' : 'transparent', opacity: i === active ? 1 : 0.6 }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={img.url} alt="" className="w-full h-full object-cover" />
+                <Image src={img.url} alt="" fill sizes="80px" className="object-cover" />
               </button>
             ))}
           </div>
@@ -123,12 +125,17 @@ export default function Gallery({ images, title, type }: Props) {
             </button>
           )}
 
-          <div className="max-w-4xl max-h-[85vh] mx-16" onClick={e => e.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+          <div
+            className="relative mx-16 rounded-xl overflow-hidden"
+            style={{ width: '56rem', maxWidth: 'calc(100vw - 8rem)', height: '85vh' }}
+            onClick={e => e.stopPropagation()}
+          >
+            <Image
               src={sorted[active].url}
               alt={title}
-              className="max-w-full max-h-[85vh] object-contain rounded-xl"
+              fill
+              sizes="(max-width: 1024px) 100vw, 896px"
+              className="object-contain"
             />
           </div>
 

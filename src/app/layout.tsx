@@ -26,6 +26,20 @@ export const metadata: Metadata = {
     siteName: 'Dari.dz',
     type: 'website',
     locale: 'fr_DZ',
+    images: [
+      {
+        url: `${SITE_URL}/og-default.jpg`,
+        width: 1200,
+        height: 630,
+        alt: 'Dari.dz — Immobilier en Algérie',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Dari.dz — Immobilier en Algérie',
+    description: 'La première plateforme dédiée à l\'immobilier en Algérie. Achetez, vendez, ou louez dans les 48 wilayas.',
+    images: [`${SITE_URL}/og-default.jpg`],
   },
   alternates: {
     canonical: SITE_URL,

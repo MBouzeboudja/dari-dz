@@ -57,6 +57,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description,
       ...(primary ? { images: [primary.url] } : {}),
     },
+    alternates: {
+      canonical: `${siteUrl}/annonces/${id}`,
+    },
   }
 }
 

@@ -23,6 +23,7 @@ interface PageProps {
 
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const params = await searchParams
+  const page = Math.max(1, Number(params.page ?? 1))
   const parts: string[] = []
 
   if (params.type)        parts.push(TYPE_LABEL[params.type] ?? params.type)
@@ -42,10 +43,9 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     title,
     description,
     alternates: {
-      canonical: params.type || params.transaction || params.wilaya
-        ? undefined  // pages filtrées non canoniques
-        : '/annonces',
+      canonical: '/annonces',
     },
+    ...(page > 1 ? { robots: { index: false, follow: true } } : {}),
   }
 }
 
