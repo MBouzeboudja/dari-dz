@@ -103,7 +103,8 @@ export default async function HomePage() {
 
           {/* Barre de recherche */}
           <form action="/annonces" method="GET">
-            <div className="bg-white rounded-2xl p-2 flex gap-2 shadow-2xl max-w-2xl mx-auto">
+            <div className="bg-white rounded-2xl p-2 flex flex-col sm:flex-row gap-2 shadow-2xl max-w-2xl mx-auto">
+              {/* Champ texte */}
               <div className="flex-1 flex items-center gap-2 px-3">
                 <svg className="text-gray-300 shrink-0" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
@@ -115,15 +116,19 @@ export default async function HomePage() {
                   style={{ color: 'var(--navy)' }}
                 />
               </div>
-              <div className="w-px my-2" style={{ background: 'var(--border)' }} />
-              <select name="transaction" className="text-sm outline-none px-3 bg-transparent cursor-pointer" style={{ color: 'var(--navy)' }}>
-                <option value="">Vente & Location</option>
-                <option value="vente">À vendre</option>
-                <option value="location">À louer</option>
-              </select>
-              <button type="submit" className="px-5 py-2.5 rounded-xl text-white text-sm font-bold shrink-0 transition-opacity hover:opacity-90" style={{ background: 'var(--terracotta)' }}>
-                Rechercher
-              </button>
+              {/* Séparateur horizontal sur mobile, vertical sur desktop */}
+              <div className="h-px sm:h-auto sm:w-px mx-2 sm:mx-0 sm:my-2" style={{ background: 'var(--border)' }} />
+              {/* Select + bouton */}
+              <div className="flex items-center gap-2 px-1">
+                <select name="transaction" className="flex-1 text-sm outline-none px-2 py-2 bg-transparent cursor-pointer" style={{ color: 'var(--navy)' }}>
+                  <option value="">Vente & Location</option>
+                  <option value="vente">À vendre</option>
+                  <option value="location">À louer</option>
+                </select>
+                <button type="submit" className="px-5 py-2.5 rounded-xl text-white text-sm font-bold shrink-0 transition-opacity hover:opacity-90" style={{ background: 'var(--terracotta)' }}>
+                  Rechercher
+                </button>
+              </div>
             </div>
           </form>
 
