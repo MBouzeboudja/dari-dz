@@ -80,7 +80,7 @@ export default async function MesAnnoncesPage() {
                 </div>
 
                 {/* Actions */}
-                <div className="flex border-t" style={{ borderColor: 'var(--border)' }}>
+                <div className="relative flex border-t" style={{ borderColor: 'var(--border)' }}>
                   <Link href={`/annonces/${listing.id}`} className="flex-1 text-center py-2.5 text-xs font-medium text-gray-500 hover:bg-gray-50 transition-colors border-r" style={{ borderColor: 'var(--border)' }}>
                     👁 Voir
                   </Link>

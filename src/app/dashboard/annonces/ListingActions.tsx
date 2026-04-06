@@ -41,17 +41,19 @@ export default function ListingActions({ listingId, status }: Props) {
   /* ── Confirmation inline vendu ── */
   if (state === 'confirm-sold') {
     return (
-      <div className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 border-l" style={{ ...borderStyle, background: 'var(--success-bg)' }}>
-        <span className="text-xs font-medium shrink-0" style={{ color: 'var(--success)' }}>Marquer vendu ?</span>
-        <button onClick={confirmSold}
-          className="px-2.5 py-1 rounded-lg text-xs font-bold text-white transition-colors"
-          style={{ background: 'var(--success)' }}>
-          Oui
-        </button>
-        <button onClick={() => setState('idle')}
-          className="px-2.5 py-1 rounded-lg text-xs font-bold text-gray-500 bg-white border hover:bg-gray-50 transition-colors" style={borderStyle}>
-          Non
-        </button>
+      <div className="absolute inset-0 flex items-center justify-center gap-3 px-4 z-10" style={{ background: 'var(--success-bg)' }}>
+        <span className="text-xs font-medium" style={{ color: 'var(--success)' }}>Marquer comme vendu ?</span>
+        <div className="flex gap-2 shrink-0">
+          <button onClick={confirmSold}
+            className="px-3 py-1.5 rounded-lg text-xs font-bold text-white transition-colors"
+            style={{ background: 'var(--success)' }}>
+            Oui
+          </button>
+          <button onClick={() => setState('idle')}
+            className="px-3 py-1.5 rounded-lg text-xs font-bold text-gray-500 bg-white border hover:bg-gray-50 transition-colors" style={borderStyle}>
+            Non
+          </button>
+        </div>
       </div>
     )
   }
@@ -59,17 +61,19 @@ export default function ListingActions({ listingId, status }: Props) {
   /* ── Confirmation inline suppression ── */
   if (state === 'confirm-delete') {
     return (
-      <div className="flex-1 flex items-center justify-center gap-2 px-3 py-2.5 border-l" style={{ ...borderStyle, background: 'var(--error-bg)' }}>
-        <span className="text-xs font-medium shrink-0" style={{ color: 'var(--error)' }}>Supprimer ?</span>
-        <button onClick={confirmDelete}
-          className="px-2.5 py-1 rounded-lg text-xs font-bold text-white transition-colors"
-          style={{ background: 'var(--error)' }}>
-          Oui
-        </button>
-        <button onClick={() => setState('idle')}
-          className="px-2.5 py-1 rounded-lg text-xs font-bold text-gray-500 bg-white border hover:bg-gray-50 transition-colors" style={borderStyle}>
-          Non
-        </button>
+      <div className="absolute inset-0 flex items-center justify-center gap-3 px-4 z-10" style={{ background: 'var(--error-bg)' }}>
+        <span className="text-xs font-medium" style={{ color: 'var(--error)' }}>Supprimer cette annonce ?</span>
+        <div className="flex gap-2 shrink-0">
+          <button onClick={confirmDelete}
+            className="px-3 py-1.5 rounded-lg text-xs font-bold text-white transition-colors"
+            style={{ background: 'var(--error)' }}>
+            Oui
+          </button>
+          <button onClick={() => setState('idle')}
+            className="px-3 py-1.5 rounded-lg text-xs font-bold text-gray-500 bg-white border hover:bg-gray-50 transition-colors" style={borderStyle}>
+            Non
+          </button>
+        </div>
       </div>
     )
   }
