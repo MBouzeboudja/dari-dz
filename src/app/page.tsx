@@ -75,7 +75,7 @@ export default async function HomePage() {
           </h1>
 
           <p className="text-white/60 mb-10 text-base max-w-xl mx-auto">
-            Appartements, villas, terrains, locaux — des milliers d&apos;annonces dans les 48 wilayas.
+            Appartements, villas, terrains, locaux — des milliers d&apos;annonces dans les {WILAYAS.length} wilayas.
           </p>
 
           {/* Barre de recherche */}
@@ -238,7 +238,7 @@ export default async function HomePage() {
               Dari<span style={{ color: 'var(--terracotta)' }}>.dz</span>
             </span>
             <p className="text-sm leading-relaxed">
-              La première plateforme dédiée à l&apos;immobilier en Algérie. 48 wilayas couvertes.
+              La première plateforme dédiée à l&apos;immobilier en Algérie. {WILAYAS.length} wilayas couvertes.
             </p>
           </div>
           <FooterCol title="Annonces" links={[
